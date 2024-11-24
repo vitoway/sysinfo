@@ -151,7 +151,7 @@ impl Connection {
 
     fn initialize_security(self) -> Option<Connection> {
         unsafe {
-            CoInitializeSecurity(
+            let _ = CoInitializeSecurity(
                 PSECURITY_DESCRIPTOR::default(),
                 -1,
                 None,
@@ -161,9 +161,9 @@ impl Connection {
                 None,
                 EOAC_NONE,
                 None,
-            )
+            );
         }
-        .map_or(None, |_| Some(self))
+        Some(self)
     }
 
     fn create_instance(mut self) -> Option<Connection> {
